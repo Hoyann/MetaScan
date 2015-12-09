@@ -3,7 +3,6 @@
 
 MetaScan漏洞验证平台是基于Metasploit框架。
 
-
 目录
 ====
 
@@ -11,7 +10,3 @@ MetaScan漏洞验证平台是基于Metasploit框架。
    :maxdepth: 2
 
    introduce
-
-
-
-
