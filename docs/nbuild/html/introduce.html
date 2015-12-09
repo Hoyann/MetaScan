@@ -58,6 +58,35 @@
 </div>
 <div class="section" id="id3">
 <h2>环境配置<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>下载程序
+磨刀不误砍柴工，在写模块之前需要搭建好相关环境。如果你是个勤劳的白帽子，我们建议您在*nix系统中完整的安装一次Metasploit，有助于对该框架的多一些了解，不过，熟悉kali的人大都知道系统自身带有现成的环境。Metasploit和Kali Linux的相关下载地址参考如下：
+Metasploit境内官方下载地址：<a class="reference external" href="http://www.metasploit.cn/thread-3-1-1.html">http://www.metasploit.cn/thread-3-1-1.html</a>
+Metaspoit境外官方下载地址：
+&#8211;Metasploit for Linux 64-bit:
+Kali Linux境内官方下载地址：
+Kali Linux境外官方下载地址：<a class="reference external" href="https://www.kali.org/downloads/">https://www.kali.org/downloads/</a></p>
+<p>安装程序
+Metasploit因存在windows和linux两个版本，windows下的安装方式较为常规，此处只介绍在linux系统下的安装方法。
+a、添加执行权限
+64位：chmod +x /path/to/metasploit-latest-linux-x64-installer.run
+32位：chmod +x /path/to/metasploit-latest-linux-installer.run</p>
+<p>b、以root权限运行安装程序
+64位：sudo /path/to/metasploit-latest-linux-x64-installer.run
+32位：sudo /path/to/metasploit-latest-linux-installer.run</p>
+<p>c、在出现Metasploit的安装窗口之后，均按默认选项执行并单击‘Forward’即可完成安装。</p>
+<p>注：编写Metaplosit模块所使用的语言是ruby， Metasploit和Kali Linux在安装完成后均包含了需要的ruby环境，用户可以直接进行相关操作，至于IDE以及Metasploit的两个不同平台的版本选择，此处不做推荐，可以根据自身熟悉情况而定。</p>
+<p>相关目录
+进入Metasploit的目录
+cd /opt/metasploit/apps/pro/msf3/modules/exploits</p>
+<p>注：该目录存放的主要是漏洞验证相关的模块，用户所写的相关漏洞验证模块均存放在此目录下，感兴趣的白帽子也可以写一些工具性的模块，工具性的模块主要存放在/opt/metasploit/apps/pro/msf3/modules/auxiliary目录中，但类似这些模块均不在此文档中做说明，用户可自行研究。</p>
+</div>
+<div class="section" id="id4">
+<h2>编写模块<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<p>编写规范</p>
+<p>参考如下：<a class="reference external" href="https://ruby-china.org/wiki/coding-style">https://ruby-china.org/wiki/coding-style</a></p>
+</div>
+<div class="section" id="id5">
+<h2>常见问题<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
 </div>
 </div>
 
@@ -72,6 +101,8 @@
 <li><a class="reference internal" href="#">快速入门</a><ul>
 <li><a class="reference internal" href="#id2">简介</a></li>
 <li><a class="reference internal" href="#id3">环境配置</a></li>
+<li><a class="reference internal" href="#id4">编写模块</a></li>
+<li><a class="reference internal" href="#id5">常见问题</a></li>
 </ul>
 </li>
 </ul>
