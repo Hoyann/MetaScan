@@ -157,6 +157,7 @@ db_status
 
 查看postgresql端口情况
 ::
+
     netstat -tnpl | grep postgresql 或 netstat -tnpl | grep postgres
 
 若服务和端口均不存在，则需要手动开启其服务
