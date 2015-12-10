@@ -52,7 +52,7 @@ c、在出现Metasploit的安装窗口之后，均按默认选项执行并单击
 
 进入Metasploit的目录::
 
-    cd /opt/metasploit/apps/pro/msf3/modules/exploits
+    cd /opt/metasploit/apps/pro/msf3/modules/
 
 .. note::
     该目录存放的主要是漏洞验证相关的模块，用户所写的相关漏洞验证模块均存放在此目录下，感兴趣的白帽子也可以写一些工具性的模块，工具性的模块主要存放在/opt/metasploit/apps/pro/msf3/modules/auxiliary目录中，但类似这些模块均不在此文档中做说明，用户可自行研究。
@@ -68,7 +68,7 @@ c、在出现Metasploit的安装窗口之后，均按默认选项执行并单击
 
 **2. 示例参考**
 
-以乌云上的漏洞来源为例子：http://www.wooyun.org/bugs/wooyun-2010-061894（用户在写模块时，可自行从网上搜索漏洞）
+以乌云上的漏洞来源为例子：http://www.wooyun.org/bugs/wooyun-2010-061894/（用户在写模块时，可自行从网上搜索漏洞）
 
 U-Mail邮件系统权限设置问题导致任意用户密码可越权查看，指定为一个已存在的邮箱账号即可查看任意账户密码。
 

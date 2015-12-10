@@ -106,7 +106,49 @@ end
 <li><em>include Msf::Auxiliary::Cisco</em></li>
 </ul>
 <p><strong>Initialize&#8212;-初始化</strong></p>
-<p>Name：模块名称</p>
+<div class="highlight-python"><div class="highlight"><pre>def initialize(info = {})
+  super(update_info(info,
+    &#39;Name&#39;           =&gt; &#39;Generic PHP Code Evaluation&#39;,
+    &#39;Description&#39;    =&gt; %q{
+      Exploits things like &lt;?php eval($_REQUEST[&#39;evalme&#39;]); ?&gt;
+      It is likely that HTTP evasion options will break this exploit.
+    },
+    &#39;Author&#39;         =&gt; [ &#39;egypt&#39; ],
+    &#39;License&#39;        =&gt; BSD_LICENSE,
+    &#39;References&#39;     =&gt; [ ],
+    &#39;Privileged&#39;     =&gt; false,
+    &#39;Platform&#39;       =&gt; [&#39;php&#39;],
+    &#39;Arch&#39;           =&gt; ARCH_PHP,
+    &#39;Payload&#39;        =&gt;
+      {
+
+        # max header length for Apache,
+        # http://httpd.apache.org/docs/2.2/mod/core.html#limitrequestfieldsize
+        &#39;Space&#39;       =&gt; 8190,
+
+        # max url length for some old versions of apache according to
+        # http://www.boutell.com/newfaq/misc/urllength.html
+        #&#39;Space&#39;       =&gt; 4000,
+        &#39;DisableNops&#39; =&gt; true,
+        &#39;BadChars&#39;    =&gt; %q|&#39;&quot;`|,  # quotes are escaped by PHP&#39;s magic_quotes_gpc in a default install
+        &#39;Compat&#39;      =&gt;
+                                 {
+            &#39;ConnectionType&#39; =&gt; &#39;find&#39;,
+          },
+        &#39;Keys&#39;        =&gt; [&#39;php&#39;],
+      },
+    &#39;DisclosureDate&#39; =&gt; &#39;Oct 13 2008&#39;,
+    &#39;Targets&#39;        =&gt; [ [&#39;Automatic&#39;, { }], ],
+    &#39;DefaultTarget&#39; =&gt; 0
+    ))
+  register_options(
+    [
+      OptString.new(&#39;URIPATH&#39;,   [ true,  &quot;The URI to request, with the eval()&#39;d parameter changed to !CODE!&quot;, &#39;/test.php?evalme=!CODE!&#39;]),
+    ], self.class)
+end
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">Name</span></code>：模块名称</p>
 <p><code class="docutils literal"><span class="pre">Description</span></code>：模块描述</p>
 <p><code class="docutils literal"><span class="pre">License</span></code>：开源协议，参数如下：</p>
 <ul class="simple">

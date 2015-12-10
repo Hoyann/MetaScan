@@ -5,7 +5,8 @@
 ^^^^^^^^^^^^
 
 辅助模块不会在自动扫描中调用，可以在metasploit的模块功能中使用，或msfconsole中直接使用。
-::
+
+``/opt/metasploit/apps/pro/msf3/modules/auxiliary/scanner/http/jenkins_login.rb`` 模块::
 
     require 'msf/core'
     require 'metasploit/framework/credential_collection'
@@ -82,7 +83,8 @@
 ^^^^^^^^^^^^
 
 利用模块在自动扫描中会自动调用扫描目标机器。
-::
+
+``/opt/metasploit/apps/pro/msf3/modules/exploits/unix/webapp/php_eval.rb`` 模块::
 
     require 'msf/core'
     class Metasploit3 < Msf::Exploit::Remote

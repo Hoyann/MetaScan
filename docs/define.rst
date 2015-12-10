@@ -58,8 +58,50 @@
 * *include Msf::Auxiliary::Cisco*
 
 **Initialize----初始化**
+::
 
-Name：模块名称
+      def initialize(info = {})
+        super(update_info(info,
+          'Name'           => 'Generic PHP Code Evaluation',
+          'Description'    => %q{
+            Exploits things like <?php eval($_REQUEST['evalme']); ?>
+            It is likely that HTTP evasion options will break this exploit.
+          },
+          'Author'         => [ 'egypt' ],
+          'License'        => BSD_LICENSE,
+          'References'     => [ ],
+          'Privileged'     => false,
+          'Platform'       => ['php'],
+          'Arch'           => ARCH_PHP,
+          'Payload'        =>
+            {
+    
+              # max header length for Apache,
+              # http://httpd.apache.org/docs/2.2/mod/core.html#limitrequestfieldsize
+              'Space'       => 8190,
+    
+              # max url length for some old versions of apache according to
+              # http://www.boutell.com/newfaq/misc/urllength.html
+              #'Space'       => 4000,
+              'DisableNops' => true,
+              'BadChars'    => %q|'"`|,  # quotes are escaped by PHP's magic_quotes_gpc in a default install
+              'Compat'      =>
+                                       {
+                  'ConnectionType' => 'find',
+                },
+              'Keys'        => ['php'],
+            },
+          'DisclosureDate' => 'Oct 13 2008',
+          'Targets'        => [ ['Automatic', { }], ],
+          'DefaultTarget' => 0
+          ))
+        register_options(
+          [
+            OptString.new('URIPATH',   [ true,  "The URI to request, with the eval()'d parameter changed to !CODE!", '/test.php?evalme=!CODE!']),
+          ], self.class)
+      end
+
+``Name``：模块名称
 
 ``Description``：模块描述
 

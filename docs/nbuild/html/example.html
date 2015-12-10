@@ -55,6 +55,7 @@
 <div class="section" id="id2">
 <h2>辅助模块例子<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
 <p>辅助模块不会在自动扫描中调用，可以在metasploit的模块功能中使用，或msfconsole中直接使用。</p>
+<p><code class="docutils literal"><span class="pre">/opt/metasploit/apps/pro/msf3/modules/auxiliary/scanner/http/jenkins_login.rb</span></code> 模块:</p>
 <div class="highlight-python"><div class="highlight"><pre>require &#39;msf/core&#39;
 require &#39;metasploit/framework/credential_collection&#39;
 require &#39;metasploit/framework/login_scanner/jenkins&#39;
@@ -131,6 +132,7 @@ end
 <div class="section" id="id3">
 <h2>利用模块例子<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
 <p>利用模块在自动扫描中会自动调用扫描目标机器。</p>
+<p><code class="docutils literal"><span class="pre">/opt/metasploit/apps/pro/msf3/modules/exploits/unix/webapp/php_eval.rb</span></code> 模块:</p>
 <div class="highlight-python"><div class="highlight"><pre>require &#39;msf/core&#39;
 class Metasploit3 &lt; Msf::Exploit::Remote
   Rank = ManualRanking
