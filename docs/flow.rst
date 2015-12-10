@@ -79,7 +79,7 @@
 
 **指定PAYLOAD**
 
-在设置该模块的PAYLOAD之前需要查看该模块可用的PAYLOAD有哪些，可使用命令 ``show payloads`` 查看，示例如下::
+在设置该模块的PAYLOAD之前需要查看该模块可用的PAYLOAD有哪些，可使用命令 ``show payloads`` 查看，示例如下:
 
 .. image:: image/1.4.9.png
 

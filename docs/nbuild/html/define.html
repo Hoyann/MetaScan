@@ -52,6 +52,144 @@
             
   <div class="section" id="id1">
 <h1>相关定义<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p><strong>常用的辅助方法</strong></p>
+<p>辅助方法相关代码在 <code class="docutils literal"><span class="pre">msf3/lib/msf/</span></code> 目录下，以 <code class="docutils literal"><span class="pre">Msf::Exploit::Remote::HttpClient</span></code> 为例子，该辅助方法所在目录为：<code class="docutils literal"><span class="pre">msf3/lib/msf/core/exploit/http/client.rb</span></code></p>
+<p><code class="docutils literal"><span class="pre">client.rb</span></code> 里代码封装了 <code class="docutils literal"><span class="pre">send_request_raw</span></code> 方法， <code class="docutils literal"><span class="pre">include</span></code> 之后，我们可以在自己的模块中使用该方法，源码如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>#
+# Connects to the server, creates a request, sends the request, reads the response
+#
+# Passes +opts+ through directly to Rex::Proto::Http::Client#request_raw.
+#
+def send_request_raw(opts={}, timeout = 20)
+  if datastore[&#39;HttpClientTimeout&#39;] &amp;&amp; datastore[&#39;HttpClientTimeout&#39;] &gt; 0
+    actual_timeout = datastore[&#39;HttpClientTimeout&#39;]
+  else
+    actual_timeout =  opts[:timeout] || timeout
+  end
+  begin
+    c = connect(opts)
+    r = c.request_raw(opts)
+    c.send_recv(r, actual_timeout)
+  rescue ::Errno::EPIPE, ::Timeout::Error
+    nil
+  end
+end
+</pre></div>
+</div>
+<p>该方法的作用为，创建一个请求，并发送请求到目标服务器，获取读取响应。在前面我们的编写模块例子中有使用，发起了一个method为get的请求，请求到Url地址:</p>
+<div class="highlight-python"><div class="highlight"><pre>datastore[&#39;TARGETURI&#39;]) +&quot;/getPass.php?update=s&amp;email=#{datastore[&#39;EMAIL&#39;]}&quot;
+</pre></div>
+</div>
+<p>并且超时时间为20秒，代码如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>res = send_request_cgi( {
+            &#39;method&#39; =&gt; &quot;GET&quot;,
+            &#39;uri&#39;    =&gt; normalize_uri(datastore[&#39;TARGETURI&#39;]) + &quot;/getPass.php?update=s&amp;email=#{datastore[&#39;EMAIL&#39;]}&quot;
+          }, 20)
+</pre></div>
+</div>
+<p>常用辅助方法还包含了很多辅助我们模块使用的方法，大家可以去源码中发现并使用它们。</p>
+<p>常用的辅助方法如下:</p>
+<ul class="simple">
+<li><em>include Msf::Exploit::Remote::HttpClient</em> &#8212;-http请求辅助方法</li>
+<li><em>include Msf::Exploit::Remote::Tcp</em> &#8212;-tcp请求辅助方法</li>
+<li><em>include Msf::Exploit::EXE</em></li>
+<li><em>include Msf::Exploit::Remote::SMTPDeliver</em></li>
+<li><em>include Msf::Exploit::FileDropper</em></li>
+<li><em>include Msf::HTTP::Wordpress</em></li>
+<li><em>include Msf::Exploit::PhpEXE</em></li>
+<li><em>include Msf::Exploit::Remote::HttpServer::PHPInclude</em></li>
+<li><em>include Msf::Auxiliary::Scanner</em></li>
+<li><em>include Msf::Auxiliary::Report</em></li>
+<li><em>include Msf::Auxiliary::AuthBrute</em></li>
+<li><em>include Msf::Auxiliary::WmapScanServer</em></li>
+<li><em>include Msf::HTTP::Typo3</em></li>
+<li><em>include Msf::Auxiliary::Cisco</em></li>
+</ul>
+<p><strong>Initialize&#8212;-初始化</strong></p>
+<p>Name：模块名称</p>
+<p><code class="docutils literal"><span class="pre">Description</span></code>：模块描述</p>
+<p><code class="docutils literal"><span class="pre">License</span></code>：开源协议，参数如下：</p>
+<ul class="simple">
+<li><em>MSF_LICENSE      = &#8220;Metasploit Framework License (BSD)&#8221;</em></li>
+<li><em>GPL_LICENSE      = &#8220;GNU Public License v2.0&#8221;</em></li>
+<li><em>BSD_LICENSE      = &#8220;BSD License&#8221;</em></li>
+<li><em>ARTISTIC_LICENSE = &#8220;Perl Artistic License&#8221;</em></li>
+<li><em>UNKNOWN_LICENSE  = &#8220;Unknown License&#8221;</em></li>
+</ul>
+<p><code class="docutils literal"><span class="pre">Author</span></code>：作者，可以为多人，数据格式，如：[‘Rain’,‘Bolide’]</p>
+<p><code class="docutils literal"><span class="pre">Platform</span></code>：目标平台，数组格式或字符串格式，如：[‘php’,’unix’]，或者’linux’</p>
+<p><code class="docutils literal"><span class="pre">Arch</span></code>：目标架构，架构数据如下:</p>
+<ul class="simple">
+<li><em>ARCH_ANY     = &#8216;_any_&#8217;</em></li>
+<li><em>ARCH_X86     = &#8216;x86&#8217;</em></li>
+<li><em>ARCH_X86_64  = &#8216;x86_64&#8217;</em></li>
+<li><em>ARCH_X64     = &#8216;x64&#8217; # To be used for compatability with ARCH_X86_64</em></li>
+<li><em>ARCH_MIPS    = &#8216;mips&#8217;</em></li>
+<li><em>ARCH_MIPSLE  = &#8216;mipsle&#8217;</em></li>
+<li><em>ARCH_MIPSBE  = &#8216;mipsbe&#8217;</em></li>
+<li><em>ARCH_PPC     = &#8216;ppc&#8217;</em></li>
+<li><em>ARCH_PPC64   = &#8216;ppc64&#8217;</em></li>
+<li><em>ARCH_CBEA    = &#8216;cbea&#8217;</em></li>
+<li><em>ARCH_CBEA64  = &#8216;cbea64&#8217;</em></li>
+<li><em>ARCH_SPARC   = &#8216;sparc&#8217;</em></li>
+<li><em>ARCH_CMD     = &#8216;cmd&#8217;</em></li>
+<li><em>ARCH_PHP     = &#8216;php&#8217;</em></li>
+<li><em>ARCH_TTY     = &#8216;tty&#8217;</em></li>
+<li><em>ARCH_ARMLE   = &#8216;armle&#8217;</em></li>
+<li><em>ARCH_ARMBE   = &#8216;armbe&#8217;</em></li>
+<li><em>ARCH_JAVA    = &#8216;java&#8217;</em></li>
+<li><em>ARCH_RUBY    = &#8216;ruby&#8217;</em></li>
+<li><em>ARCH_DALVIK  = &#8216;dalvik&#8217;</em></li>
+<li><em>ARCH_PYTHON  = &#8216;python&#8217;</em></li>
+<li><em>ARCH_NODEJS  = &#8216;nodejs&#8217;</em></li>
+<li><em>ARCH_FIREFOX = &#8216;firefox&#8217;</em></li>
+<li><em>ARCH_ZARCH   = &#8216;zarch&#8217;</em></li>
+</ul>
+<p><code class="docutils literal"><span class="pre">Targets</span></code>：目标信息，数组格式，如:</p>
+<div class="highlight-python"><div class="highlight"><pre>[
+    [ &#39;MIPS Little Endian&#39;, {&#39;Platform&#39; =&gt; &#39;linux&#39;,&#39;Arch&#39;     =&gt; ARCH_MIPSLE}],
+    [ &#39;MIPS Big Endian&#39;,{&#39;Platform&#39; =&gt; &#39;linux&#39;,&#39;Arch&#39;     =&gt; ARCH_MIPSBE}]
+]
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">DefaultTarget</span></code>：默认目标，指向Targets</p>
+<p><code class="docutils literal"><span class="pre">Privileged</span></code>：这个模块是否需要访问权限，数据为true或false，默认为false</p>
+<p><code class="docutils literal"><span class="pre">DisclosureDate</span></code>：POC公布时间</p>
+<p><code class="docutils literal"><span class="pre">Payload</span></code>：载荷，用于漏洞利用</p>
+<p><code class="docutils literal"><span class="pre">register_options</span></code>：该方法用于定义模块的参数，参数格式如下:</p>
+<p>#第一个参数为数组，第二个参数为 <code class="docutils literal"><span class="pre">self.classregister_options([],</span> <span class="pre">self.class)</span></code>，如下:</p>
+<div class="highlight-python"><div class="highlight"><pre>register_options(
+      [OptString.new(&#39;参数名&#39;, [true, &#39;参数描述&#39;,默认值]),
+        OptEnum.new(&#39;参数名&#39;, [true, &#39;描述&#39;, &#39;默认值&#39;, [&#39;选项1&#39;, &#39;选项2&#39;]]),
+        Opt::RPORT(8080),
+        ...
+      ], self.class)
+</pre></div>
+</div>
+<p>#数组参数，有如下类型:</p>
+<ul class="simple">
+<li><em>OptString：字符串类型，如OptString.new(&#8216;LOGIN_URL&#8217;, [true, &#8216;The URL that handles the login process&#8217;, &#8216;/&#8217;])</em></li>
+<li><em>OptEnum：枚举类型，如OptEnum.new(&#8216;HTTP_METHOD&#8217;, [true, &#8216;The HTTP method to use for the login&#8217;, &#8216;POST&#8217;, [&#8216;GET&#8217;, &#8216;POST&#8217;]])</em></li>
+<li><em>OptAddressRange：地址范围，如OptAddressRange.new(&#8220;RHOSTS&#8221;, [ false, &#8220;Target address range or CIDR identifier&#8221; ])</em></li>
+<li><em>OptAddress：目标地址，如OptAddress.new(&#8216;SOURCEIP&#8217;, [false, &#8216;The local client address&#8217;])</em></li>
+<li><em>OptInt：数值类型，如OptInt.new(&#8216;UID&#8217;, [false, &#8216;UID to emulate&#8217;, 0])</em></li>
+<li><em>OptRegexp：正则匹配，如OptRegexp.new(&#8216;PATTERN&#8217;, [true, &#8216;Match a keyword in any chat log&#8217;s filename&#8217;, &#8216;(2012-02-.+).xml$&#8217;]),</em></li>
+<li><em>OptPath：文件路径类型，如OptPath.new(&#8216;PLUGINS&#8217;,   [ true, &#8220;Path to list of plugins to enumerate&#8221;, File.join(Msf::Config.data_directory, &#8220;wordlists&#8221;, &#8220;joomla.txt&#8221;)])</em></li>
+<li><em>OptBool：boolean类型，如OptBool.new(&#8216;PLESK&#8217;, [true, &#8220;Exploit Plesk&#8221;, false])</em></li>
+<li><em>OptPort：端口类型，如OptPort.new(&#8216;RPORT&#8217;, [true, &#8216;The remote port&#8217;, 13838])</em></li>
+<li><em>OptRaw：任何数据格式</em></li>
+</ul>
+<p><strong>Rank定义</strong></p>
+<p>Rank是用来做模块排名的，在进行自动化扫描时，排名靠前的模块会优先被利用，分值如下:</p>
+<ul class="simple">
+<li><em>#ManualRanking       = 0</em></li>
+<li><em>#LowRanking          = 100</em></li>
+<li><em>#AverageRanking      = 200</em></li>
+<li><em>#NormalRanking       = 300</em></li>
+<li><em>#GoodRanking         = 400</em></li>
+<li><em>#GreatRanking        = 500</em></li>
+<li><em>#ExcellentRanking    = 600</em></li>
+</ul>
 </div>
 
 
