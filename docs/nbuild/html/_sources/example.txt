@@ -4,9 +4,12 @@
 辅助模块例子
 ^^^^^^^^^^^^
 
-辅助模块不会在自动扫描中调用，可以在metasploit的模块功能中使用，或msfconsole中直接使用。
+辅助模块通常为信息探测类，可进行端口、服务等敏感类信息的获取，对于该类模块通常可单独进行使用。
 
-``/opt/metasploit/apps/pro/msf3/modules/auxiliary/scanner/http/jenkins_login.rb`` 模块::
+``/opt/metasploit/apps/pro/msf3/modules/auxiliary/scanner/http/jenkins_login.rb`` 模块:
+
+.. code-block:: ruby
+   :linenos:
 
     require 'msf/core'
     require 'metasploit/framework/credential_collection'
@@ -82,9 +85,12 @@
 利用模块例子
 ^^^^^^^^^^^^
 
-利用模块在自动扫描中会自动调用扫描目标机器。
+利用模块多为漏洞验证型的，通常用来进行渗透利用，利用成功的通常可获取到具有一定权限的会话，在自动化渗透检测中可被调用，也可单独使用。
 
-``/opt/metasploit/apps/pro/msf3/modules/exploits/unix/webapp/php_eval.rb`` 模块::
+``/opt/metasploit/apps/pro/msf3/modules/exploits/unix/webapp/php_eval.rb`` 模块:
+
+.. code-block:: ruby
+   :linenos:
 
     require 'msf/core'
     class Metasploit3 < Msf::Exploit::Remote

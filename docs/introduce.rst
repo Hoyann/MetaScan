@@ -76,7 +76,10 @@ U-Mail邮件系统权限设置问题导致任意用户密码可越权查看，�
     cd /opt/metasploit/apps/pro/msf3/modules/exploits
     vi umail_pass.rb
 
-示例代码如下::
+示例代码如下:
+
+.. code-block:: ruby
+   :linenos:
 
     #encoding:utf-8
     require 'msf/core'
