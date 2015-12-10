@@ -13,10 +13,8 @@ MetaScan漏洞验证平台基于metasploit-framework框架而推，基于这个�
 
 磨刀不误砍柴工，在写模块之前需要搭建好相关环境。如果你是个勤劳的白帽子，我们建议您在*nix系统中完整的安装一次Metasploit，有助于对该框架的多一些了解，不过，熟悉kali的人大都知道系统自身带有现成的环境。Metasploit和Kali Linux的相关下载地址参考如下：
 
-* `Metasploit境内官方下载 <http://www.metasploit.cn/thread-3-1-1.html>`_
-* `Metasploit境外官方下载 <http://>`_
-* `Kali Linux境内官方下载 <http://>`_
-* `Kali Linux境外官方下载 <https://www.kali.org/downloads/>`_
+* `Metasploit官方下载 <http://downloads.metasploit.com/data/releases/metasploit-latest-linux-x64-installer.run>`_
+* `Kali Linux官方下载 <https://www.kali.org/downloads/>`_
 
 **2. 安装程序**
 
