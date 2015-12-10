@@ -138,3 +138,38 @@ U-Mail邮件系统权限设置问题导致任意用户密码可越权查看，�
 
 常见问题
 ^^^^^^^^
+
+``问题1``：使用search命令时返回如下内容：
+
+.. image:: image/1.4.1.png
+
+``解决1``：检查数据库的连接
+在msf终端中查看postgresql的连接状态
+db_status
+若显示信息如下图所示，则表示数据库连接异常
+
+.. image:: image/1.4.2.png
+
+查看postgresql数据库服务是否开启
+::
+
+    ps -aux | grep -i postgresql 或 service postgresql status
+
+查看postgresql端口情况
+::
+    netstat -tnpl | grep postgresql 或 netstat -tnpl | grep postgres
+
+若服务和端口均不存在，则需要手动开启其服务
+::
+
+    service postgresql start 或 /etc/init.d/postgresql-*.* start	(请根据自身情况选择对应的版本)
+	
+之后退出msf终端，并再次msfconsole进入查看状态，若仍然未连接，则查看Metasploit的数据库配置文件之后，在msf终端下手动连接
+
+Metasploit默认安装的情况下其数据库配置文件所在位置为::
+
+    /opt/metasploit/apps/pro/ui/config/database.yml
+	
+手动连接命令为::
+
+    db_connect username:password@127.0.0.1/dbname

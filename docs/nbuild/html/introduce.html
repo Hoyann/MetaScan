@@ -175,6 +175,34 @@ end
 </div>
 <div class="section" id="id7">
 <h2>常见问题<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal"><span class="pre">问题1</span></code>：使用search命令时返回如下内容：</p>
+<img alt="_images/1.4.1.png" src="_images/1.4.1.png" />
+<p><code class="docutils literal"><span class="pre">解决1</span></code>：检查数据库的连接
+在msf终端中查看postgresql的连接状态
+db_status
+若显示信息如下图所示，则表示数据库连接异常</p>
+<img alt="_images/1.4.2.png" src="_images/1.4.2.png" />
+<p>查看postgresql数据库服务是否开启</p>
+<div class="highlight-python"><div class="highlight"><pre>ps -aux | grep -i postgresql 或 service postgresql status
+</pre></div>
+</div>
+<p>查看postgresql端口情况</p>
+<div class="highlight-python"><div class="highlight"><pre>netstat -tnpl | grep postgresql 或 netstat -tnpl | grep postgres
+</pre></div>
+</div>
+<p>若服务和端口均不存在，则需要手动开启其服务</p>
+<div class="highlight-python"><div class="highlight"><pre>service postgresql start 或 /etc/init.d/postgresql-*.* start (请根据自身情况选择对应的版本)
+</pre></div>
+</div>
+<p>之后退出msf终端，并再次msfconsole进入查看状态，若仍然未连接，则查看Metasploit的数据库配置文件之后，在msf终端下手动连接</p>
+<p>Metasploit默认安装的情况下其数据库配置文件所在位置为:</p>
+<div class="highlight-python"><div class="highlight"><pre>/opt/metasploit/apps/pro/ui/config/database.yml
+</pre></div>
+</div>
+<p>手动连接命令为:</p>
+<div class="highlight-python"><div class="highlight"><pre>db_connect username:password@127.0.0.1/dbname
+</pre></div>
+</div>
 </div>
 </div>
 
